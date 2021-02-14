@@ -4,19 +4,21 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+
 // selected image
 let sliders = [];
 
 // 20270338-71076b8db3042f54bef724a87
 // username : nahidhassanbulbul
+// Api Key
 const KEY = '20270338-71076b8db3042f54bef724a87&q';
 
 // show images
 const showImages = images => {
     imagesArea.style.display = 'block';
     gallery.innerHTML = '';
-    // show gallery title
     toggleSpinner()
+    // show gallery title
     galleryHeader.style.display = 'flex';
     images.forEach(image => {
         let div = document.createElement('div');
@@ -105,8 +107,18 @@ const changeSlide = index => {
     items[index].style.display = 'block';
 };
 
-const search = document.getElementById('search');
+// toggle handler 
+const toggleSpinner = () => {
+    // Toggle spinner
+    const spinner = document.getElementById('loadingSpinner').classList;
+    spinner.toggle('d-none');
+    // toggle hide previous images
+    const imagesArea = document.querySelector('.images').classList;
+    imagesArea.toggle('d-none');
+};
 
+
+const search = document.getElementById('search');
 const showImage = () => {
     document.querySelector('.main').style.display = 'none';
     clearInterval(timer);
@@ -119,12 +131,13 @@ searchBtn.addEventListener('click', function () {
     showImage();
 });
 
+// Enter key press added
 search.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
         showImage();
     }
 });
-
+// Some validation
 sliderBtn.addEventListener('click', function () {
     const duration = document.getElementById('duration').value || 1000;
     if (duration < 0) {
@@ -134,10 +147,3 @@ We recommended you to set min value to 1000 .`)
         createSlider();
     }
 });
-
-const toggleSpinner = () => {
-    const spinner = document.getElementById('loadingSpinner').classList;
-    spinner.toggle('d-none');
-    const imagesArea = document.querySelector('.images').classList;
-    imagesArea.toggle('d-none');
-};
